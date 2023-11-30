@@ -21,7 +21,6 @@
 <script>
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("create");
-    tg.expand();
 
     create.addEventListener("click", ()=>{
         document.getElementById("login").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
@@ -34,7 +33,7 @@
         email: email,
         phone: phone
         }
-        tg.sendData(JSON.stringify(data));
+        tg.sendData('Hello');
 
         tg.close();
     });
