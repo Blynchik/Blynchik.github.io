@@ -20,10 +20,7 @@
     let fill = document.getElementById("fill");
     tg.expand();
 
-    fill.addEventListener("click", ()=> {
-        document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name;
-    }
-                         )
+    document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name;                         
     
     create.addEventListener("click", () => {
         let name = document.getElementById("user_name").value;
