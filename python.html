@@ -24,13 +24,15 @@
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("order");
     let fill = document.getElementById("fill");
+    let user_name_input = document.getElementById("user_name");
     tg.expand();
 
     fill.addEventListener("click", ()=> {
         document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name;
+        user_name_input.value = user_first_name;
     }
                          )
-
+    
     create.addEventListener("click", () => {
         // let name = document.getElementById("user_name").value;
 
