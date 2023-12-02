@@ -18,9 +18,7 @@
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("order");
     let fill = document.getElementById("fill");
-    tg.expand();
-
-    document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name;                         
+    tg.expand();                         
     
     create.addEventListener("click", () => {
         let name = document.getElementById("user_name").value;
