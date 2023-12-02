@@ -26,14 +26,12 @@
                          )
     
     create.addEventListener("click", () => {
-        // let name = document.getElementById("user_name").value;
+        let name = document.getElementById("user_name").value;
 
-        // let data = {
-        //     name: name,
-        //     email: email,
-        //     phone: phone
-        // }
-        // tg.sendData(JSON.stringify(data));
+        let data = {
+            name: name
+        }
+        tg.sendData(JSON.stringify(data));
 
         tg.close();
     });
