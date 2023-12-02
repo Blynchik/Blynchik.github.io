@@ -8,28 +8,20 @@
     <title>Shop</title>
 </head>
 <body>
-<!--     <div id="main">
-        <hi>Онлайн</hi>
-        <img src="https://w.forfun.com/fetch/da/daf8eb568fea522f6701fb9c66378cdc.jpeg">
-        <p>Text</p>
-        <button id="buy">Купить</button>
-    </div> -->
     <form id="form">
         <input type="text" placeholder="Имя" id="user_name">
         <button id="order">Оформить</button>
+        <button id="fill">Заполнить</button>
     </form>
-    <button id="fill">Заполнить</button>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("order");
     let fill = document.getElementById("fill");
-    let user_name_input = document.getElementById("user_name");
     tg.expand();
 
     fill.addEventListener("click", ()=> {
-        document.getElementById("user_name").value = tg.initDataUnsafe.user.first_name;
-        user_name_input.value = user_first_name;
+        document.getElementById("user_name").value = "Rere";
     }
                          )
     
