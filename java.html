@@ -1,73 +1,36 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hero Info</title>
+    <title>GitHub Pages AJAX Request</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <div id="userinfo">
-        <p id="name"></p>
-        <p id="creationtime"></p>
-    </div>
-    <button id="delete">Удалить</button>
-    <button id="refresh">Обновить</button>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-    let tg = window.Telegram.WebApp;
-    let deleteBtn = document.getElementById("delete");
-    let refreshBtn = document.getElementById("refresh");
-    tg.expand();
+    <h1>Данные пользователя</h1>
+    <form>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" readonly>
+        <br>
+        <label for="registrationDate">Дата регистрации:</label>
+        <input type="text" id="registrationDate" readonly>
+    </form>
 
-    // Fetch user data from the API
-    function getUserData() {
-        fetch('api/user')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("name").textContent = data.name;
-                document.getElementById("creationtime").textContent = data.creationtime;
-            })
-            .catch(error => {
-                console.error('Error:', error);
+    <script>
+        $(document).ready(function() {
+            // Выполняем AJAX-запрос к серверу
+            $.ajax({
+                url: 'https://ваш_удаленный_сервер/api/userdata',
+                method: 'GET',
+                success: function(response) {
+                    // Обработка успешного ответа
+                    $('#name').val(response.name);
+                    $('#registrationDate').val(response.registrationDate);
+                },
+                error: function() {
+                    // Обработка ошибки
+                    alert('Ошибка при получении данных');
+                }
             });
-    }
-
-    // Delete user data using the API
-    function deleteUser() {
-        fetch('api/user', {
-            method: 'DELETE',
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
         });
-    }
-
-    // Update user data using the API
-    function updateUser() {
-        fetch('api/user', {
-            method: 'PUT',
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-
-    deleteBtn.addEventListener("click", deleteUser);
-    refreshBtn.addEventListener("click", updateUser);
-
-    tg.sendData("pageOpened");
-
-    getUserData();
-</script>
+    </script>
 </body>
 </html>
