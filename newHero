@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание героя</title>
+</head>
+<body>
+    <h1>Создание героя</h1>
+    
+    <form action="/create-hero" method="post">
+        <label for="firstName">Имя:</label>
+        <input type="text" id="firstName" name="firstName" required/><br/><br/>
+        
+        <label for="lastName">Фамилия:</label>
+        <input type="text" id="lastName" name="lastName" required/><br/><br/>
+        
+        <input type="submit" value="Создать"/>
+    </form>
+</body>
+</html>
