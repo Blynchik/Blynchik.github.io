@@ -2,6 +2,12 @@
 <html>
 <head>
     <title>Создание героя</title>
+    <style>
+        #strengthValue {
+            display: inline-block;
+            width: 50px;
+        }
+    </style>
 </head>
 <body>
     <h1>Создание героя</h1>
@@ -13,7 +19,32 @@
         <label for="lastName">Фамилия:</label>
         <input type="text" id="lastName" name="lastName" required/><br/><br/>
         
+        <label for="strength">Сила:</label>
+        <button type="button" id="decreaseStrength">-</button>
+        <span id="strengthValue">8</span>
+        <button type="button" id="increaseStrength">+</button><br/><br/>
+        
         <input type="submit" value="Создать"/>
     </form>
+
+    <script>
+        var strengthValue = document.getElementById("strengthValue");
+        var increaseButton = document.getElementById("increaseStrength");
+        var decreaseButton = document.getElementById("decreaseStrength");
+        
+        var strength = 8;
+        
+        increaseButton.addEventListener("click", function() {
+            strength++;
+            strengthValue.textContent = strength;
+        });
+        
+        decreaseButton.addEventListener("click", function() {
+            if (strength > 0) {
+                strength--;
+                strengthValue.textContent = strength;
+            }
+        });
+    </script>
 </body>
 </html>
