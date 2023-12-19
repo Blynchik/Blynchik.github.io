@@ -10,24 +10,31 @@
         #strengthErrorMessage {
             color: red;
         }
+        #pointsErrorMessage {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <h1>Создание героя</h1>
-    
+
     <form action="/create-hero" method="post">
         <label for="firstName">Имя:</label>
         <input type="text" id="firstName" name="firstName" required/><br/><br/>
-        
+
         <label for="lastName">Фамилия:</label>
         <input type="text" id="lastName" name="lastName" required/><br/><br/>
-        
+
         <label for="strength">Сила:</label>
         <button type="button" id="decreaseStrength">-</button>
         <span id="strengthValue">8</span>
         <button type="button" id="increaseStrength">+</button><br/>
         <span id="strengthErrorMessage"></span><br/><br/>
-        
+
+        <label for="points">Нераспределенные очки:</label>
+        <span id="pointsValue">6</span><br/>
+        <span id="pointsErrorMessage"></span><br/><br/>
+
         <input type="submit" value="Создать"/>
     </form>
 
@@ -36,30 +43,49 @@
         var increaseButton = document.getElementById("increaseStrength");
         var decreaseButton = document.getElementById("decreaseStrength");
         var strengthErrorMessage = document.getElementById("strengthErrorMessage");
-        
+        var pointsValue = document.getElementById("pointsValue");
+        var pointsErrorMessage = document.getElementById("pointsErrorMessage");
+
         var strength = 8;
-        
+        var points = 6;
+
         increaseButton.addEventListener("click", function() {
-            if (strength < 6) {
+            if (points > 0) {
                 strength++;
+                points--;
                 strengthValue.textContent = strength;
+                pointsValue.textContent = points;
                 checkStrength();
+                checkPoints();
+            } else {
+                pointsErrorMessage.textContent = "Нет нераспределенных очков.";
             }
         });
-        
+
         decreaseButton.addEventListener("click", function() {
             if (strength > 0) {
                 strength--;
+                points++;
                 strengthValue.textContent = strength;
+                pointsValue.textContent = points;
                 checkStrength();
+                checkPoints();
             }
         });
-        
+
         function checkStrength() {
             if (strength < 5) {
                 strengthErrorMessage.textContent = "Герой не сможет выполнять простейшие действия.";
             } else {
                 strengthErrorMessage.textContent = "";
+            }
+        }
+
+        function checkPoints() {
+            if (points <= 0) {
+                pointsErrorMessage.textContent = "Нет нераспределенных очков.";
+            } else {
+                pointsErrorMessage.textContent = "";
             }
         }
     </script>
