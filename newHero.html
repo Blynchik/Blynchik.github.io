@@ -40,9 +40,11 @@
         var strength = 8;
         
         increaseButton.addEventListener("click", function() {
-            strength++;
-            strengthValue.textContent = strength;
-            checkStrength();
+            if (strength < 6) {
+                strength++;
+                strengthValue.textContent = strength;
+                checkStrength();
+            }
         });
         
         decreaseButton.addEventListener("click", function() {
