@@ -3,14 +3,11 @@
 <head>
     <title>Создание героя</title>
     <style>
-        #strengthValue {
+        #strengthValue, #agilityValue, #enduranceValue {
             display: inline-block;
             width: 50px;
         }
-        #strengthErrorMessage {
-            color: red;
-        }
-        #pointsErrorMessage {
+        #strengthErrorMessage, #agilityErrorMessage, #enduranceErrorMessage, #pointsErrorMessage {
             color: red;
         }
     </style>
@@ -31,6 +28,18 @@
         <button type="button" id="increaseStrength">+</button><br/>
         <span id="strengthErrorMessage"></span><br/><br/>
 
+        <label for="agility">Ловкость:</label>
+        <button type="button" id="decreaseAgility">-</button>
+        <span id="agilityValue">8</span>
+        <button type="button" id="increaseAgility">+</button><br/>
+        <span id="agilityErrorMessage"></span><br/><br/>
+
+        <label for="endurance">Выносливость:</label>
+        <button type="button" id="decreaseEndurance">-</button>
+        <span id="enduranceValue">8</span>
+        <button type="button" id="increaseEndurance">+</button><br/>
+        <span id="enduranceErrorMessage"></span><br/><br/>
+
         <label for="points">Нераспределенные очки:</label>
         <span id="pointsValue">6</span><br/>
         <span id="pointsErrorMessage"></span><br/><br/>
@@ -40,16 +49,29 @@
 
     <script>
         var strengthValue = document.getElementById("strengthValue");
-        var increaseButton = document.getElementById("increaseStrength");
-        var decreaseButton = document.getElementById("decreaseStrength");
+        var increaseStrengthButton = document.getElementById("increaseStrength");
+        var decreaseStrengthButton = document.getElementById("decreaseStrength");
         var strengthErrorMessage = document.getElementById("strengthErrorMessage");
+
+        var agilityValue = document.getElementById("agilityValue");
+        var increaseAgilityButton = document.getElementById("increaseAgility");
+        var decreaseAgilityButton = document.getElementById("decreaseAgility");
+        var agilityErrorMessage = document.getElementById("agilityErrorMessage");
+
+        var enduranceValue = document.getElementById("enduranceValue");
+        var increaseEnduranceButton = document.getElementById("increaseEndurance");
+        var decreaseEnduranceButton = document.getElementById("decreaseEndurance");
+        var enduranceErrorMessage = document.getElementById("enduranceErrorMessage");
+
         var pointsValue = document.getElementById("pointsValue");
         var pointsErrorMessage = document.getElementById("pointsErrorMessage");
 
         var strength = 8;
+        var agility = 8;
+        var endurance = 8;
         var points = 6;
 
-        increaseButton.addEventListener("click", function() {
+        increaseStrengthButton.addEventListener("click", function() {
             if (points > 0) {
                 strength++;
                 points--;
@@ -62,7 +84,7 @@
             }
         });
 
-        decreaseButton.addEventListener("click", function() {
+        decreaseStrengthButton.addEventListener("click", function() {
             if (strength > 0) {
                 strength--;
                 points++;
@@ -73,12 +95,68 @@
             }
         });
 
+        increaseAgilityButton.addEventListener("click", function() {
+            if (points > 0) {
+                agility++;
+                points--;
+agilityValue.textContent = agility;
+                pointsValue.textContent = points;
+                checkAgility();
+                checkPoints();
+            } else {
+                pointsErrorMessage.textContent = "Нет нераспределенных очков.";
+            }
+        });
+
+        decreaseAgilityButton.addEventListener("click", function() {
+            if (agility > 0) {
+                agility--;
+                points++;
+                agilityValue.textContent = agility;
+                pointsValue.textContent = points;
+                checkAgility();
+                checkPoints();
+            }
+        });
+
+        increaseEnduranceButton.addEventListener("click", function() {
+            if (points > 0) {
+                endurance++;
+                points--;
+                enduranceValue.textContent = endurance;
+                pointsValue.textContent = points;
+                checkEndurance();
+                checkPoints();
+            } else {
+                pointsErrorMessage.textContent = "Нет нераспределенных очков.";
+            }
+        });
+
+        decreaseEnduranceButton.addEventListener("click", function() {
+            if (endurance > 0) {
+                endurance--;
+                points++;
+                enduranceValue.textContent = endurance;
+                pointsValue.textContent = points;
+                checkEndurance();
+                checkPoints();
+            }
+        });
+
         function checkStrength() {
             if (strength < 5) {
                 strengthErrorMessage.textContent = "Герой не сможет выполнять простейшие действия.";
             } else {
                 strengthErrorMessage.textContent = "";
             }
+        }
+
+        function checkAgility() {
+            // Add your logic to check agility here
+        }
+
+        function checkEndurance() {
+            // Add your logic to check endurance here
         }
 
         function checkPoints() {
