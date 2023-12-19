@@ -152,11 +152,19 @@ agilityValue.textContent = agility;
         }
 
         function checkAgility() {
-            // Add your logic to check agility here
+             if (agility < 5) {
+                agilityErrorMessage.textContent = "Герой не сможет выполнять простейшие действия.";
+            } else {
+                agilityErrorMessage.textContent = "";
+            }
         }
 
         function checkEndurance() {
-            // Add your logic to check endurance here
+             if (endurance < 5) {
+                enduranceErrorMessage.textContent = "Герой не сможет выполнять простейшие действия.";
+            } else {
+                enduranceErrorMessage.textContent = "";
+            }
         }
 
         function checkPoints() {
