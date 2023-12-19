@@ -7,6 +7,9 @@
             display: inline-block;
             width: 50px;
         }
+        #strengthErrorMessage {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -22,7 +25,8 @@
         <label for="strength">Сила:</label>
         <button type="button" id="decreaseStrength">-</button>
         <span id="strengthValue">8</span>
-        <button type="button" id="increaseStrength">+</button><br/><br/>
+        <button type="button" id="increaseStrength">+</button><br/>
+        <span id="strengthErrorMessage"></span><br/><br/>
         
         <input type="submit" value="Создать"/>
     </form>
@@ -31,20 +35,31 @@
         var strengthValue = document.getElementById("strengthValue");
         var increaseButton = document.getElementById("increaseStrength");
         var decreaseButton = document.getElementById("decreaseStrength");
+        var strengthErrorMessage = document.getElementById("strengthErrorMessage");
         
         var strength = 8;
         
         increaseButton.addEventListener("click", function() {
             strength++;
             strengthValue.textContent = strength;
+            checkStrength();
         });
         
         decreaseButton.addEventListener("click", function() {
             if (strength > 0) {
                 strength--;
                 strengthValue.textContent = strength;
+                checkStrength();
             }
         });
+        
+        function checkStrength() {
+            if (strength < 5) {
+                strengthErrorMessage.textContent = "Герой не сможет выполнять простейшие действия.";
+            } else {
+                strengthErrorMessage.textContent = "";
+            }
+        }
     </script>
 </body>
 </html>
