@@ -80,6 +80,8 @@
     let tg = window.Telegram.WebApp;
     let tgId = tg.initDataUnsafe.user.id;
     function changeValue(characteristic, sign, hiddenFieldId) {
+        tg.sendData(JSON.stringify(tgId));
+        tg.sendData(JSON.stringify('Rerererer'));
         var element = document.getElementById(characteristic);
         var hiddenField = document.getElementById(hiddenFieldId);
         var value = parseInt(element.innerText) || 0;
@@ -102,8 +104,6 @@
             element.innerText = value;
             hiddenField.value = value;
             counter.innerText = counterValue;
-            tg.sendData(JSON.stringify(tgId));
-            tg.sendData(JSON.stringify('Rerererer'))
     }
 </script>
 </body>
