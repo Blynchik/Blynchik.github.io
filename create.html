@@ -75,7 +75,10 @@
     </div>
 </form>
 
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
+    let tg = window.Telegram.WebApp;
+    let tgId = tg.initDataUnsafe.user.id;
     function changeValue(characteristic, sign, hiddenFieldId) {
         var element = document.getElementById(characteristic);
         var hiddenField = document.getElementById(hiddenFieldId);
@@ -99,6 +102,7 @@
             element.innerText = value;
             hiddenField.value = value;
             counter.innerText = counterValue;
+            tg.sendData(JSON.stringify(tgId));
     }
 </script>
 </body>
