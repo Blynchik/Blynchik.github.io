@@ -18,11 +18,11 @@
 <script>
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("order");
+    document.getElementById("tg").value = tg.initDataUnsafe.user.first_name;
     tg.expand();                         
     
     create.addEventListener("click", () => {
         let name = document.getElementById("user_name").value;
-        document.getElementById("tg").value = tg.initDataUnsafe.user.first_name;
         let id = document.getElementById("tg").value;
 
         let data = {
