@@ -49,7 +49,7 @@
         <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
     </div>
  -->
-    <button type="submit">Создать</button>
+    <button id="submit">Создать</button>
 
 <!--     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -109,14 +109,14 @@
     let tg = window.Telegram.WebApp;
     let submit = document.getElementById("submit");
 
-    submit.addEventListener("click", ()=> {
+    submit.addEventListener("click", () => {
         let name = tg.initDataUnsafe.user.first_name;
         let data = {
             name: name
         }
         tg.sendData(JSON.stringify(data));
-        });
         tg.close();
+        });
 </script>
 </body>
 </html>
