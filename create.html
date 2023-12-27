@@ -51,7 +51,7 @@
 
     <button type="submit">Создать</button>
 
-    <script th:inline="javascript">
+<!--     <script th:inline="javascript">
         /*<![CDATA[*/
             document.getElementById("name").value = /*[[${hero.name}]]*/ '';
             document.getElementById("lastName").value = /*[[${hero.lastName}]]*/ '';
@@ -66,7 +66,7 @@
             var totalPoints = 30 - (strength + dexterity + constitution);
             document.getElementById("counter").textContent = totalPoints;
         /*]]>*/
-    </script>
+    </script> -->
 
     <div th:if="${#fields.hasErrors('*') && #fields.hasGlobalErrors()}">
         <ul>
@@ -79,8 +79,7 @@
 <script>
     function changeValue(characteristic, sign, hiddenFieldId) {
         let tg = window.Telegram.WebApp;
-        tg.sendData(JSON.stringify("Rerererer"));
-        let tgId = tg.initDataUnsafe.user.id;
+        let tgId = tg.initDataUnsafe.user.name;
         tg.sendData(JSON.stringify(tgId));
         var element = document.getElementById(characteristic);
         var hiddenField = document.getElementById(hiddenFieldId);
