@@ -22,11 +22,9 @@
     
     create.addEventListener("click", () => {
         let name = document.getElementById("user_name").value;
-        let tg = tg.initDataUnsafe.user.first_name;
 
         let data = {
             name: name,
-            tg: tg
         }
         tg.sendData(JSON.stringify(data));
 
