@@ -13,7 +13,7 @@
 <body>
 <h1>Создание героя</h1>
 <form th:action="@{/test/hero/create}" th:method="post" th:object="${hero}">
-    <div>
+<!--     <div>
         <label for="name">Имя:</label>
         <input type="text" id="name" th:field="*{name}" th:value="${hero.name}">
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
@@ -48,7 +48,7 @@
         <button type="button" onclick="changeValue('con', '+', 'hiddenCon')">+</button>
         <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
     </div>
-
+ -->
     <button type="submit">Создать</button>
 
 <!--     <script th:inline="javascript">
@@ -76,11 +76,10 @@
 </form>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
+<!-- <script>
     function changeValue(characteristic, sign, hiddenFieldId) {
         let tg = window.Telegram.WebApp;
         let tgId = tg.initDataUnsafe.user.name;
-        tg.sendData(JSON.stringify(tgId));
         var element = document.getElementById(characteristic);
         var hiddenField = document.getElementById(hiddenFieldId);
         var value = parseInt(element.innerText) || 0;
@@ -103,7 +102,21 @@
             element.innerText = value;
             hiddenField.value = value;
             counter.innerText = counterValue;
+            tg.sendData(JSON.stringify(tgId));
     }
+</script> -->
+<script>
+    let tg = window.Telegram.WebApp;
+    let submit = document.getElementById("submit");
+
+    submit.addEventListener("click", ()=> {
+        let name = tg.initDataUnsafe.user.first_name;
+        let data = {
+            name: name
+        }
+        tg.sendData(JSON.stringify(data));
+        });
+        tg.close();
 </script>
 </body>
 </html>
