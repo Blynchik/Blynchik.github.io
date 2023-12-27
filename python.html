@@ -10,7 +10,7 @@
 <body>
     <form id="form">
         <input type="text" placeholder="Имя" id="user_name">
-        <input type="text" placeholder="Tg" id="tg">
+        <input type="text" placeholder="Tg" id="tgI">
         <button id="order">Оформить</button>
         <button id="fill">Заполнить</button>
     </form>
@@ -18,12 +18,12 @@
 <script>
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("order");
-    document.getElementById("tg").value = tg.initDataUnsafe.user.first_name;
+    // document.getElementById("tgI").value = tg.initDataUnsafe.user.first_name;
     tg.expand();                         
     
     create.addEventListener("click", () => {
         let name = document.getElementById("user_name").value;
-        let id = document.getElementById("tg").value;
+        // let id = document.getElementById("tg").value;
 
         let data = {
             name: name,
