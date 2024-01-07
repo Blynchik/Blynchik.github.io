@@ -50,7 +50,7 @@
     </div>
     <input type="hidden" id="hiddenId" name="tgId" th:value="${hero.tgId}"/>
 
-    <button type="submit" onclick="sendData()">Создать</button>
+    <button id="create">Создать</button>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -77,18 +77,24 @@
 </form>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <script>
-    function sendData() {
-        let tg = window.Telegram.WebApp;
-        let id = tg.initDataUnsafe.user.first_name;
-        document.getElementById("hiddenId").value = id;
-        let data = {
-            id: id
-        }
-        tg.sendData(JSON.stringify(data));
-        document.getElementById("createHero").submit();
-    }
+    let tg = window.Telegram.WebApp;
+    let create = document.getElementById("create");
+    
+    tg.expand();
+    create.addEventListener("click", () => {
+            let setId = tg.initDataUnsafe.user.id;
+            document.getElementById("hiddenId").value = setId;
+            let tgId = document.getElementById("hiddenId").value;
+
+            let data = {
+                id: tgId
+            }
+            tg.sendData(JSON.stringify(data));
+            document.getElementById("createHero").submit();
+
+            tg.close();
+        });
 </script>
 
 <script>
