@@ -13,7 +13,7 @@
 <body>
 <h1>Создание героя</h1>
 <form th:action="@{/test/hero/create}" th:method="post" th:object="${hero}">
-<!--     <div>
+    <div>
         <label for="name">Имя:</label>
         <input type="text" id="name" th:field="*{name}" th:value="${hero.name}">
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
@@ -48,10 +48,10 @@
         <button type="button" onclick="changeValue('con', '+', 'hiddenCon')">+</button>
         <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
     </div>
- -->
-    <button id="submit">Создать</button>
 
-<!--     <script th:inline="javascript">
+    <button type="submit">Создать</button>
+
+    <script th:inline="javascript">
         /*<![CDATA[*/
             document.getElementById("name").value = /*[[${hero.name}]]*/ '';
             document.getElementById("lastName").value = /*[[${hero.lastName}]]*/ '';
@@ -66,7 +66,7 @@
             var totalPoints = 30 - (strength + dexterity + constitution);
             document.getElementById("counter").textContent = totalPoints;
         /*]]>*/
-    </script> -->
+    </script>
 
     <div th:if="${#fields.hasErrors('*') && #fields.hasGlobalErrors()}">
         <ul>
@@ -75,11 +75,8 @@
     </div>
 </form>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<!-- <script>
+<script>
     function changeValue(characteristic, sign, hiddenFieldId) {
-        let tg = window.Telegram.WebApp;
-        let tgId = tg.initDataUnsafe.user.name;
         var element = document.getElementById(characteristic);
         var hiddenField = document.getElementById(hiddenFieldId);
         var value = parseInt(element.innerText) || 0;
@@ -102,21 +99,7 @@
             element.innerText = value;
             hiddenField.value = value;
             counter.innerText = counterValue;
-            tg.sendData(JSON.stringify(tgId));
     }
-</script> -->
-<script>
-    let tg = window.Telegram.WebApp;
-    let submit = document.getElementById("submit");
-
-    submit.addEventListener("click", () => {
-        let name = tg.initDataUnsafe.user.first_name;
-        let data = {
-            name: name
-        }
-        tg.sendData(JSON.stringify(data));
-        tg.close();
-        });
 </script>
 </body>
 </html>
