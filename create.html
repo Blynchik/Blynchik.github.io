@@ -84,8 +84,8 @@
     tg.expand();
     create.addEventListener("click", () => {
             let setId = tg.initDataUnsafe.user.id;
-            alert(setId);
             document.getElementById("hiddenId").value = setId;
+            alert(document.getElementById("hiddenId").value);
             let tgId = document.getElementById("hiddenId").value;
 
             let data = {
