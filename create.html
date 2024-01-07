@@ -81,18 +81,12 @@
 <script>
     function sendData() {
         let tg = window.Telegram.WebApp;
-        alert(tg);
         let id = tg.initDataUnsafe.user.first_name;
-        alert(id);
         document.getElementById("hiddenId").value = id;
-        alert(id);
         let data = {
             id: id
         }
         tg.sendData(JSON.stringify(data));
-        tg.close();
-
-        event.preventDefault();
         document.getElementById("createHero").submit();
     }
 </script>
