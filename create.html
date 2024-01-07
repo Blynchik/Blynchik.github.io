@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>Создание героя</h1>
-<form th:action="@{/test/hero/create}" th:method="post" th:object="${hero}">
+<form id="createHero" th:action="@{/test/hero/create}" th:method="post" th:object="${hero}">
     <div>
         <label for="name">Имя:</label>
         <input type="text" id="name" th:field="*{name}" th:value="${hero.name}">
@@ -49,7 +49,7 @@
         <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
     </div>
 
-    <button type="submit">Создать</button>
+    <button type="submit" onclick="sendData()">Создать</button>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -74,6 +74,23 @@
         </ul>
     </div>
 </form>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<script>
+    function sendData() {
+       let tg = window.Telegram.WebApp;
+        let id = tg.initDataUnsafe.user.id;
+        let data = {
+            id: id
+        }
+        tg.sendData(JSON.stringify(data));
+        tg.close();
+        
+        event.preventDefault();
+        document.getElementById("createHero").submit();
+    }
+</script> 
 
 <script>
     function changeValue(characteristic, sign, hiddenFieldId) {
