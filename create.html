@@ -48,6 +48,7 @@
         <button type="button" onclick="changeValue('con', '+', 'hiddenCon')">+</button>
         <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
     </div>
+    <input type="hidden" id="hiddenId" name="tgId" th:value="${hero.tgId}"/>
 
     <button type="submit" onclick="sendData()">Создать</button>
 
@@ -77,20 +78,23 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <script>
     function sendData() {
-       let tg = window.Telegram.WebApp;
+        let tg = window.Telegram.WebApp;
         let id = tg.initDataUnsafe.user.id;
+        document.getElementById("hiddenId").value = id;
         let data = {
             id: id
         }
         tg.sendData(JSON.stringify(data));
         tg.close();
-        
+
         event.preventDefault();
         document.getElementById("createHero").submit();
     }
-</script> 
+</script>
 
 <script>
     function changeValue(characteristic, sign, hiddenFieldId) {
