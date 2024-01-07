@@ -83,6 +83,7 @@
 <script>
     function sendData() {
         let tg = window.Telegram.WebApp;
+        alert(tg)
         let id = tg.initDataUnsafe.user.id;
         document.getElementById("hiddenId").value = id;
         alert(id);
