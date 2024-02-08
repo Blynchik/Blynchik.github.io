@@ -2,44 +2,131 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <title>Создание героя</title>
+    <style>
+        .error {
+            color: red;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/test/registration}" th:object="${user}">
-    <label for="login">Login: </label>
-    <input type="text" th:field="*{login}" id="login"/>
-    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Login Error</div>
-    <br/>
-    <label for="password">Password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
-    <br/>
+<h1>Создание героя</h1>
+<form id="createHero" th:action="@{/test/hero/create}" th:method="post" th:object="${hero}">
+    <div>
+        <label for="name">Имя:</label>
+        <input type="text" id="name" th:field="*{name}" th:value="${hero.name}">
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+    </div>
+    <div>
+        <label for="lastName">Фамилия:</label>
+        <input type="text" id="lastName" th:field="*{lastName}" th:value="${hero.lastName}">
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+    </div>
+    <p>Осталось свободных очков: <span id="counter">6</span></p>
+    <div>
+        <label for="str">Сила:</label>
+        <input type="hidden" id="hiddenStr" th:field="*{str}" th:value="${hero.str}">
+        <button type="button" onclick="changeValue('str', '-', 'hiddenStr')">-</button>
+        <span id="str" th:text="${hero.str != null ? hero.str : '8'}"></span>
+        <button type="button" onclick="changeValue('str', '+', 'hiddenStr')">+</button>
+        <span th:if="${#fields.hasErrors('str')}" th:errors="*{str}" class="error"></span>
+    </div>
+    <div>
+        <label for="dex">Ловкость:</label>
+        <input type="hidden" id="hiddenDex" th:field="*{dex}" th:value="${hero.dex}">
+        <button type="button" onclick="changeValue('dex', '-', 'hiddenDex')">-</button>
+        <span id="dex" th:text="${hero.dex != null ? hero.dex : '8'}"></span>
+        <button type="button" onclick="changeValue('dex', '+', 'hiddenDex')">+</button>
+        <span th:if="${#fields.hasErrors('dex')}" th:errors="*{dex}" class="error"></span>
+    </div>
+    <div>
+        <label for="con">Выносливость:</label>
+        <input type="hidden" id="hiddenCon" th:field="*{con}" th:value="${hero.con}">
+        <button type="button" onclick="changeValue('con', '-', 'hiddenCon')">-</button>
+        <span id="con" th:text="${hero.con != null ? hero.con : '8'}"></span>
+        <button type="button" onclick="changeValue('con', '+', 'hiddenCon')">+</button>
+        <span th:if="${#fields.hasErrors('con')}" th:errors="*{con}" class="error"></span>
+    </div>
+    <input type="hidden" id="hiddenId" name="tgId" th:value="${hero.tgId}"/>
+
     <button id="create">Создать</button>
-    <!--    <input type="submit" value="Создать"/>-->
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+            document.getElementById("name").value = /*[[${hero.name}]]*/ '';
+            document.getElementById("lastName").value = /*[[${hero.lastName}]]*/ '';
+            document.getElementById("str").value = /*[[${hero.str != null ? hero.str : 8}]]*/ '';
+            document.getElementById("dex").value = /*[[${hero.dex != null ? hero.dex : 8}]]*/ '';
+            document.getElementById("con").value = /*[[${hero.con != null ? hero.con : 8}]]*/ '';
+
+            var strength = parseInt(document.getElementById("str").value);
+            var dexterity = parseInt(document.getElementById("dex").value);
+            var constitution = parseInt(document.getElementById("con").value);
+
+            var totalPoints = 30 - (strength + dexterity + constitution);
+            document.getElementById("counter").textContent = totalPoints;
+        /*]]>*/
+    </script>
+
+    <div th:if="${#fields.hasErrors('*') && #fields.hasGlobalErrors()}">
+        <ul>
+            <li th:each="globalError : ${#fields.globalErrors()}" th:text="${globalError}" class="error"></li>
+        </ul>
+    </div>
 </form>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
     let tg = window.Telegram.WebApp;
     let create = document.getElementById("create");
+    let setId = 2044834193;
+
     tg.expand();
-
     create.addEventListener("click", () => {
-        document.getElementById("login").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
-        let name = document.getElementById("user_name").value;
-        let email = document.getElementById("user_email").value;
-        let phone = document.getElementById("user_phone").value;
-        let tg = tg.initDataUnsafe.user.id;
+            if(setId === null || setId === ''){
+                alert("Пользователь не определен")
+            } else {
+                if (document.getElementById("str").value === '') {
+                    document.getElementById("str").value = 8;
+                }
+                if (document.getElementById("dex").value === '') {
+                    document.getElementById("dex").value = 8;
+                }
+                if (document.getElementById("con").value === '') {
+                    document.getElementById("con").value = 8;
+                }
+                document.getElementById("hiddenId").value = setId;
+                document.getElementById("createHero").submit();
+            }
+        });
+</script>
 
-        let data = {
-            name: name,
-            email: email,
-            phone: phone,
-            tg: tg
-        }
-        tg.sendData(JSON.stringify(data));
+<script>
+    function changeValue(characteristic, sign, hiddenFieldId) {
+        var element = document.getElementById(characteristic);
+        var hiddenField = document.getElementById(hiddenFieldId);
+        var value = parseInt(element.innerText) || 0;
+        var counter = document.getElementById("counter");
+        var counterValue = parseInt(counter.innerText);
 
-        tg.close();
-    });
+
+            if (sign === '+') {
+                if (counterValue - 1 >= 0) {
+                    value += 1;
+                    counterValue -= 1;
+                } else {
+                    alert("Не осталось свободных очков");
+                }
+            } else if (sign === '-') {
+                value -= 1;
+                counterValue += 1;
+            }
+
+            element.innerText = value;
+            hiddenField.value = value;
+            counter.innerText = counterValue;
+    }
 </script>
 </body>
 </html>
